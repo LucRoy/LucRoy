@@ -111,13 +111,14 @@ https://docs.estuary.tech/tutorial-uploading-your-first-file
  
 ```
 curl -X POST http://localhost:3004/content/add -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY" -H "Content-Type: multipart/form-data" -F "data=@./estuary-test-data.rar"
+{
+   "cid":"bafybeiaq4txuk5ksmmeg2273ftxwnktpj6ut4u372rnlhrl7xt54vmzodm",
+   "estuaryId":1,
+   "providers":          ["/ip4/192.168.86.67/tcp/6744/p2p/12D3KooWLmmKgFs7Jutjnhhic2V7JJhf4t9uTz4NAdLVVfSp9Fys","/ip4/127.0.0.1/tcp/6744/p2p/12D3KooWLmmKgFs7Jutjnhhic2V7JJhf4t9uTz4NAdLVVfSp9F  ys","/ip4/192.168.2.65/tcp/14868/p2p/12D3KooWLmmKgFs7Jutjnhhic2V7JJhf4t9uTz4NAdLVVfSp9Fys","/ip4/142.162.121.3/tcp/14868/p2p/12D3KooWLmmKgFs7Jutjnhhic2V7JJhf4t9uTz4NAd LVVfSp9Fys"]
+}
 ```
-```
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100 4207M    0   443  100 4207M      0  9482k  0:07:34  0:07:34 --:--:--   123{"cid":"bafybeiaq4txuk5ksmmeg2273ftxwnktpj6ut4u372rnlhrl7xt54vmzodm","estuaryId":1,"providers":["/ip4/192.168.86.67/tcp/6744/p2p/12D3KooWLmmKgFs7Jutjnhhic2V7JJhf4t9uTz4NAdLVVfSp9Fys","/ip4/127.0.0.1/tcp/6744/p2p/12D3KooWLmmKgFs7Jutjnhhic2V7JJhf4t9uTz4NAdLVVfSp9Fys","/ip4/192.168.2.65/tcp/14868/p2p/12D3KooWLmmKgFs7Jutjnhhic2V7JJhf4t9uTz4NAdLVVfSp9Fys","/ip4/142.162.121.3/tcp/14868/p2p/12D3KooWLmmKgFs7Jutjnhhic2V7JJhf4t9uTz4NAdLVVfSp9Fys"]}
-```
- 
+When successful, the response will give us the estuaryId (1), which can be used to query content data.
+
 2. Once the file is uploaded, we lookup if we have deals. Deals will be made automatically but it might take a while to seal a deal.
 https://docs.estuary.tech/api-content-deals
  
@@ -151,7 +152,7 @@ curl -X GET -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY
 ]
 ```
  
-Now that we have the content id (1), we can verify the status of the deals.
+We can also query deals for speficic content.
 https://docs.estuary.tech/api-content-status-id
  
 ```
