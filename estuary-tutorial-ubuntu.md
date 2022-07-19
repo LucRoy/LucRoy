@@ -106,8 +106,7 @@ ____________________________________O/_______
 3. You should now have an estuary and shuttle node running.
  
 ## Uploading File
-1. For this tutorial, we will choose a file that is greater than the size of the staging threshold (3.57 GiB). This way we can skip over the batching process and go directly looking for deals.
-https://docs.estuary.tech/tutorial-uploading-your-first-file
+1. For this tutorial, we will choose a file that is greater than the size of the staging threshold (3.57 GiB). This way we can skip over the batching process and go directly looking for deals. All APIs calls can also be found @ https://docs.estuary.tech/.
  
 ```
 curl -X POST http://localhost:3004/content/add -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY" -H "Content-Type: multipart/form-data" -F "data=@./estuary-test-data.rar"
@@ -120,7 +119,6 @@ curl -X POST http://localhost:3004/content/add -H "Authorization: Bearer EST51e7
 When successful, the response will give us the estuaryId (1), which can be used to query content data.
 
 2. Once the file is uploaded, we lookup if we have deals. Deals will be made automatically but it might take a while to seal a deal.
-https://docs.estuary.tech/api-content-deals
  
 ```
 curl -X GET -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY" http://localhost:3004/content/deals
@@ -153,7 +151,6 @@ curl -X GET -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY
 ```
  
 We can also query deals for speficic content.
-https://docs.estuary.tech/api-content-status-id
  
 ```
 curl -X GET -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY" http://192.168.86.67:3004/content/status/1
