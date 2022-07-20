@@ -45,10 +45,6 @@ export FULLNODE_API_INFO=wss://api.chain.love
 6. You are now ready to start your estuary node.
 ```
 $ ./estuary --logging
-```
- 
-This will also print out your wallet address.
-```
 2022-07-18T23:16:30.424Z        INFO    estuary estuary/main.go:526     estuary version: v0.1.4 {"app_version": "v0.1.4"}
 Wallet address is:  f1mugdi5c3vel2af5gv6kptb7ew67hujzklsemdea
 2022/07/18 23:16:30 failed to sufficiently increase receive buffer size (was: 208 kiB, wanted: 2048 kiB, got: 416 kiB). See https://github.com/lucas-clemente/quic-go/wiki/UDP-Receive-Buffer-Size for details.
@@ -66,7 +62,8 @@ ____________________________________O/_______
                                     O\
 ⇨ http server started on [::]:3004
 ```
- 
+**_NOTE:_** This will also print out your wallet address.
+
 7. Go to https://verify.glif.io/ and log in with your GitHub account. Once logged in, request a verified data allowance to your address. An allowance of 32GiB should now be added to your wallet.
  
 ### Shuttle
@@ -83,9 +80,7 @@ This will return two tokens that will then be used to deploy our shuttle node.
 2. Deploy a shuttle node by supplying the below command with the output from the previous step.
 ```
 ./estuary-shuttle --dev --estuary-api=localhost:3004 --auth-token=SECRET57733c54-a3b0-40cf-a3d3-cd9274cfdeb9SECRET --handle=SHUTTLEef49824c-f440-45e9-951a-13a5fc2891c9HANDLE --logging --host=localhost:3005
-```
- 
-```
+
 2022-07-18T23:16:27.211Z        INFO    shuttle estuary-shuttle/main.go:365     shuttle version: v0.1.4 {"app_version": "v0.1.4"}
 2022/07/18 23:16:27 failed to sufficiently increase receive buffer size (was: 208 kiB, wanted: 2048 kiB, got: 416 kiB). See https://github.com/lucas-clemente/quic-go/wiki/UDP-Receive-Buffer-Size for details.
 Wallet address is:  f1zgpvpukgmvh7izlsypqymn43yqvp7iuosruquwq
@@ -120,7 +115,7 @@ curl -X POST http://localhost:3004/content/add -H "Authorization: Bearer EST51e7
 When successful, the response will give us the estuaryId (1), which can be used to query content data.
 
 2. Once the file is uploaded, we can query and list content. 
-https://docs.estuary.tech/api-content-deals
+https://docs.estuary.tech/tutorial-listing-your-files
  
 ```
 curl -X GET -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY" http://localhost:3004/content/list
