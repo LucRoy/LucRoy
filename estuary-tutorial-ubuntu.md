@@ -25,7 +25,7 @@ git clone https://github.com/application-research/estuary.git
 cd estuary
 ```
  
-3. We can now build the project by running it.
+3. We can now build the project by running our make command.
 ```
 make clean all
 ```
@@ -119,16 +119,15 @@ curl -X POST http://localhost:3004/content/add -H "Authorization: Bearer EST51e7
 ```
 When successful, the response will give us the estuaryId (1), which can be used to query content data.
 
-2. Once the file is uploaded, we look up if we have deals. Deals will be made automatically but it might take a while to seal a deal.
+2. Once the file is uploaded, we can query and list content. 
 https://docs.estuary.tech/api-content-deals
  
 ```
-curl -X GET -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY" http://localhost:3004/content/deals
+curl -X GET -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY" http://localhost:3004/content/list
 [
    {
       "active" : true,
       "aggregate" : false,
-      "aggregatedFiles" : 0,
       "aggregatedIn" : 0,
       "cid" : "bafybeiaq4txuk5ksmmeg2273ftxwnktpj6ut4u372rnlhrl7xt54vmzodm",
       "dagSplit" : false,
@@ -152,7 +151,7 @@ curl -X GET -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY
 ]
 ```
  
-We can also query deals for specific content.
+We can also query deals status for specific content. Deals will be made automatically but it might take a while to seal a deal.
 https://docs.estuary.tech/api-content-status-id
  
 ```
