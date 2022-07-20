@@ -8,7 +8,7 @@ The goal of this tutorial is to deploy an estuary node and seal a filecoin deal.
  
 ## Installation
 ### Estuary
-1. For this tutorial, we will choose to deploy a estuary node on Ubuntu 22.04. We can start by installing our dependencies. From a terminal, you can execute the following commands.
+1. For this tutorial, we will choose to deploy an estuary node on Ubuntu 22.04. We can start by installing our dependencies. From a terminal, you can execute the following commands.
  
 ```
 sudo apt-get install -y wget jq hwloc ocl-icd-opencl-dev git libhwloc-dev pkg-config make golang-go cargo curl
@@ -25,7 +25,7 @@ git clone https://github.com/application-research/estuary.git
 cd estuary
 ```
  
-3. We can now build the project by running.
+3. We can now build the project by running it.
 ```
 make clean all
 ```
@@ -35,7 +35,7 @@ make clean all
 ./estuary setup
 auth token: EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY
 ```
-**_NOTE:_**  Make sure to save your auth token, since it will required for interacting with the REST API.
+**_NOTE:_**  Make sure to save your auth token since it will be required for interacting with the REST API.
  
 5. Set the FULLNODE_API_INFO environment variable to a synced lotus node.
 ```
@@ -67,7 +67,7 @@ ____________________________________O/_______
 ⇨ http server started on [::]:3004
 ```
  
-7. Go to https://verify.glif.io/ and log in with your github account. Once logged in, request a verified data allowance to your address. An allowance of 32GiB should now be added to your wallet.
+7. Go to https://verify.glif.io/ and log in with your GitHub account. Once logged in, request a verified data allowance to your address. An allowance of 32GiB should now be added to your wallet.
  
 ### Shuttle
 1. Now that we have an estuary node running, we will need to get a shuttle node running as well. The shuttle is used for interacting with IPFS and the Filecoin Network. We already built it with our previous `make all` cmd, therefore we can make the below call to initialize it. Don't forget to change the Bearer Token (auth token) to the token saved from your previous step.
@@ -106,7 +106,8 @@ ____________________________________O/_______
 3. You should now have an estuary and shuttle node running.
  
 ## Uploading File
-1. For this tutorial, we will choose a file that is greater than the size of the staging threshold (3.57 GiB). This way we can skip over the batching process and go directly looking for deals. All APIs calls can also be found @ https://docs.estuary.tech/.
+1. For this tutorial, we will choose a file that is greater than the size of the staging threshold (3.57 GiB). This way we can skip over the batching process and go directly looking for deals.
+https://docs.estuary.tech/tutorial-uploading-your-first-file
  
 ```
 curl -X POST http://localhost:3004/content/add -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY" -H "Content-Type: multipart/form-data" -F "data=@./estuary-test-data.rar"
@@ -118,7 +119,8 @@ curl -X POST http://localhost:3004/content/add -H "Authorization: Bearer EST51e7
 ```
 When successful, the response will give us the estuaryId (1), which can be used to query content data.
 
-2. Once the file is uploaded, we lookup if we have deals. Deals will be made automatically but it might take a while to seal a deal.
+2. Once the file is uploaded, we look up if we have deals. Deals will be made automatically but it might take a while to seal a deal.
+https://docs.estuary.tech/api-content-deals
  
 ```
 curl -X GET -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY" http://localhost:3004/content/deals
@@ -150,7 +152,8 @@ curl -X GET -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY
 ]
 ```
  
-We can also query deals for speficic content.
+We can also query deals for specific content.
+https://docs.estuary.tech/api-content-status-id
  
 ```
 curl -X GET -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY" http://192.168.86.67:3004/content/status/1
@@ -233,12 +236,12 @@ curl -X GET -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY
 ...
 ```
  
-2. If you encounter the error below in your logs, this means your are reaching a limit on resource access.
+2. If you encounter the error below in your logs, this means you are reaching a limit on resource access.
 ```
 2022-07-18T22:48:10.092Z        ERROR   basichost       basic/basic_host.go:327 failed to resolve local interface addresses     {"error": "route ip+net: netlinkrib: too many open files"}
 ```
  
-You can run the below command in your terminal to resolve this. Keep in mind that the command will only affect the current opened session.
+You can run the below command in your terminal to resolve this. Keep in mind that the command will only affect the opened session.
 ```
 ulimit -n 10000
 ```
@@ -247,3 +250,4 @@ ulimit -n 10000
 - https://github.com/application-research/estuary
 - https://verify.glif.io/
 - https://docs.estuary.tech/
+ 
