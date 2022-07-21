@@ -145,7 +145,7 @@ curl -X GET -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY
 ]
 ```
  
-We can also query deals status for specific content id. Deals will be made automatically but it might take a while to seal a deal.
+We can also query deals status for specific content id. Deals will be made automatically with miners but it might take a while to seal a deal.
 https://docs.estuary.tech/api-content-status-id
  
 ```
@@ -302,7 +302,7 @@ From the above output, we can see that a miner has picked up our deal and is cur
          }
       },
 ```
-3. Now that our data has been transfered our deal should now be on chain. Once your deal is on chain, it might take a while to get it seal (~24 hours). We can monitor deals on chain by querying the below API.
+3. Now that our data has been transfered our deal will be eventually moved on chain. Once your deal is on chain, it might take a while to get it seal (~24 hours). We can monitor deals on chain by querying the below API.
 ```
 curl -X GET -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY" http://localhost:3004/public/metrics/deals-on-chain
 [
