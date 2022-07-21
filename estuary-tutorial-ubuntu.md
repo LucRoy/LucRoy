@@ -112,9 +112,8 @@ curl -X POST http://localhost:3004/content/add -H "Authorization: Bearer EST51e7
    "providers":          ["/ip4/192.168.86.67/tcp/6744/p2p/12D3KooWLmmKgFs7Jutjnhhic2V7JJhf4t9uTz4NAdLVVfSp9Fys","/ip4/127.0.0.1/tcp/6744/p2p/12D3KooWLmmKgFs7Jutjnhhic2V7JJhf4t9uTz4NAdLVVfSp9F  ys","/ip4/192.168.2.65/tcp/14868/p2p/12D3KooWLmmKgFs7Jutjnhhic2V7JJhf4t9uTz4NAdLVVfSp9Fys","/ip4/142.162.121.3/tcp/14868/p2p/12D3KooWLmmKgFs7Jutjnhhic2V7JJhf4t9uTz4NAd LVVfSp9Fys"]
 }
 ```
-When successful, the response will give us the estuaryId (1), which can be used to query content data.
 
-2. Once the file is uploaded, we can query and list content. 
+2. Once the file is uploaded, we can query and list content. This should give us the content id as well which can be used later on.
 https://docs.estuary.tech/tutorial-listing-your-files
  
 ```
@@ -146,7 +145,7 @@ curl -X GET -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY
 ]
 ```
  
-We can also query deals status for specific content. Deals will be made automatically but it might take a while to seal a deal.
+We can also query deals status for specific content id. Deals will be made automatically but it might take a while to seal a deal.
 https://docs.estuary.tech/api-content-status-id
  
 ```
@@ -219,8 +218,263 @@ curl -X GET -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY
    "failuresCount" : 9
 ...
 ```
- 
-3. Congratulations!!! You have now successfully sealed a filecoin deal.
+From the above output, we can see that a miner has picked up our deal and is currently transfering data. The transfer should eventually get changed to completed, if no errors are encountered. More details on the deal flow can be fould in the filecoin spec @ https://spec.filecoin.io/#section-systems.filecoin_markets.storage_market.deal-flow
+```
+ {
+         "deal" : {
+            "CreatedAt" : "2022-07-19T11:49:47.955964797Z",
+            "DeletedAt" : null,
+            "ID" : 10,
+            "UpdatedAt" : "2022-07-19T18:54:53.273668585Z",
+            "content" : 1,
+            "dealId" : 8078325,
+            "dealUuid" : "9cd42a41-a570-4be9-b183-c3f14175a133",
+            "dtChan" : "12D3KooWLmmKgFs7Jutjnhhic2V7JJhf4t9uTz4NAdLVVfSp9Fys-12D3KooWKAd5C78zMyqbaMCm7Pt9CMyAy6eoJNzedadUuiDBkfhY-1658230750730020035",
+            "failed" : false,
+            "failedAt" : "0001-01-01T00:00:00Z",
+            "miner" : "f019551",
+            "onChainAt" : "2022-07-19T18:54:53.273576908Z",
+            "propCid" : "bafyreidf32iln6o2jlaw4bpryqglncjdh4lfdbk3x5g36qijjzr4jnytva",
+            "sealedAt" : "0001-01-01T00:00:00Z",
+            "slashed" : false,
+            "transferFinished" : "2022-07-19T12:51:56.615376139Z",
+            "transferStarted" : "2022-07-19T11:49:48.733949263Z",
+            "user_id" : 1,
+            "verified" : true
+         },
+         "onChainState" : {
+            "lastUpdatedEpoch" : -1,
+            "sectorStartEpoch" : -1,
+            "slashEpoch" : -1
+         },
+         "transfer" : {
+            "Stages" : {
+               "Stages" : [
+                  {
+                     "CreatedTime" : "2022-07-19T11:49:48.729901282Z",
+                     "Description" : "",
+                     "Logs" : null,
+                     "Name" : "Requested",
+                     "UpdatedTime" : "2022-07-19T11:49:48.946699973Z"
+                  },
+                  {
+                     "CreatedTime" : "2022-07-19T11:49:48.947572634Z",
+                     "Description" : "",
+                     "Logs" : [
+                        {
+                           "Log" : "sending data",
+                           "UpdatedTime" : "2022-07-19T11:49:48.955677401Z"
+                        }
+                     ],
+                     "Name" : "Ongoing",
+                     "UpdatedTime" : "2022-07-19T12:40:40.130518302Z"
+                  },
+                  {
+                     "CreatedTime" : "2022-07-19T12:40:40.793659761Z",
+                     "Description" : "",
+                     "Logs" : null,
+                     "Name" : "TransferFinished",
+                     "UpdatedTime" : "2022-07-19T12:40:40.793659761Z"
+                  },
+                  {
+                     "CreatedTime" : "2022-07-19T12:40:40.800614511Z",
+                     "Description" : "",
+                     "Logs" : null,
+                     "Name" : "Completing",
+                     "UpdatedTime" : "2022-07-19T12:40:40.800614511Z"
+                  }
+               ]
+            },
+            "baseCid" : "bafybeiaq4txuk5ksmmeg2273ftxwnktpj6ut4u372rnlhrl7xt54vmzodm",
+            "channelId" : {
+               "ID" : 1658230750730020035,
+               "Initiator" : "12D3KooWLmmKgFs7Jutjnhhic2V7JJhf4t9uTz4NAdLVVfSp9Fys",
+               "Responder" : "12D3KooWKAd5C78zMyqbaMCm7Pt9CMyAy6eoJNzedadUuiDBkfhY"
+            },
+            "message" : "",
+            "received" : 0,
+            "remotePeer" : "12D3KooWKAd5C78zMyqbaMCm7Pt9CMyAy6eoJNzedadUuiDBkfhY",
+            "selfPeer" : "12D3KooWLmmKgFs7Jutjnhhic2V7JJhf4t9uTz4NAdLVVfSp9Fys",
+            "sent" : 4412579774,
+            "status" : 6,
+            "statusMessage" : "Completed",
+            "transferId" : "12D3KooWLmmKgFs7Jutjnhhic2V7JJhf4t9uTz4NAdLVVfSp9Fys-12D3KooWKAd5C78zMyqbaMCm7Pt9CMyAy6eoJNzedadUuiDBkfhY-1658230750730020035"
+         }
+      },
+```
+3. Now that our data has been transfered our deal should now be on chain. Once your deal is on chain, it might take a while to get it seal (~24 hours). We can monitor deals on chain by querying the below API.
+```
+curl -X GET -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY" http://localhost:3004/public/metrics/deals-on-chain
+[
+  {
+      "dealsAttempted" : 0,
+      "dealsFailed" : 0,
+      "dealsOnChain" : 2,
+      "dealsOnChainBytes" : 8825159548,
+      "dealsSealed" : 0,
+      "dealsSealedBytes" : 0,
+      "time" : "2022-07-20T00:00:00Z"
+   }
+]
+```
+And eventually, a deal will get sealed. In this case, it was not my first deal that got on chain but a later one.
+```
+[
+...
+   {
+      "dealsAttempted" : 0,
+      "dealsFailed" : 3,
+      "dealsOnChain" : 1,
+      "dealsOnChainBytes" : 4412579774,
+      "dealsSealed" : 1,
+      "dealsSealedBytes" : 4412579774,
+      "time" : "2022-07-21T00:00:00Z"
+   }
+]
+```
+We can also double check our deal. We can see that our sealedAt time is set and have sectorStartEpoch populated under onChainState.
+```
+curl -X GET -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY" http://192.168.86.67:3004/content/status/1
+...
+ {
+         "deal" : {
+            "CreatedAt" : "2022-07-19T13:33:13.66497243Z",
+            "DeletedAt" : null,
+            "ID" : 48,
+            "UpdatedAt" : "2022-07-19T22:09:33.429594522Z",
+            "content" : 1,
+            "dealId" : 8081336,
+            "dealUuid" : "f0dd4dff-ed31-4ad4-9c75-03186d766ef0",
+            "dtChan" : "12D3KooWLmmKgFs7Jutjnhhic2V7JJhf4t9uTz4NAdLVVfSp9Fys-12D3KooWGafNMRANxrJea1wMfYcdJNVgLnKQCkNkAoGvjhGzKYJJ-1658230750730020036",
+            "failed" : false,
+            "failedAt" : "0001-01-01T00:00:00Z",
+            "miner" : "f09848",
+            "onChainAt" : "2022-07-19T22:09:33.429491959Z",
+            "propCid" : "bafyreigh4jx5hg22gjkvllxj6dcs7onhzpjpg6jtrowx7desmmrkldho5u",
+            "sealedAt" : "2022-07-21T00:09:59.842721812Z",
+            "slashed" : false,
+            "transferFinished" : "2022-07-19T20:47:24.531465474Z",
+            "transferStarted" : "2022-07-19T13:33:21.223668767Z",
+            "user_id" : 1,
+            "verified" : true
+         },
+         "onChainState" : {
+            "lastUpdatedEpoch" : -1,
+            "sectorStartEpoch" : 2001840,
+            "slashEpoch" : -1
+         },
+         "transfer" : {
+            "Stages" : {
+               "Stages" : [
+                  {
+                     "CreatedTime" : "2022-07-19T13:33:21.221703253Z",
+                     "Description" : "",
+                     "Logs" : null,
+                     "Name" : "Requested",
+                     "UpdatedTime" : "2022-07-19T13:33:24.06087058Z"
+                  },
+                  {
+                     "CreatedTime" : "2022-07-19T13:33:24.062007469Z",
+                     "Description" : "",
+                     "Logs" : [
+                        {
+                           "Log" : "sending data",
+                           "UpdatedTime" : "2022-07-19T13:33:24.127423351Z"
+                        },
+                        {
+                           "Log" : "data transfer receive error: stream reset",
+                           "UpdatedTime" : "2022-07-19T13:43:07.911583702Z"
+                        },
+                        {
+                           "Log" : "data transfer send error: queue shutdown",
+                           "UpdatedTime" : "2022-07-19T13:43:08.031874756Z"
+                        },
+                        {
+                           "Log" : "sending data",
+                           "UpdatedTime" : "2022-07-19T13:43:58.581215508Z"
+                        },
+                        {
+                           "Log" : "data transfer receive error: stream reset",
+                           "UpdatedTime" : "2022-07-19T13:45:28.747143959Z"
+                        },
+                        {
+                           "Log" : "data transfer send error: queue shutdown",
+                           "UpdatedTime" : "2022-07-19T13:45:28.841191133Z"
+                        },
+                        {
+                           "Log" : "sending data",
+                           "UpdatedTime" : "2022-07-19T13:46:24.178597774Z"
+                        },
+                        {
+                           "Log" : "data transfer receive error: stream reset",
+                           "UpdatedTime" : "2022-07-19T13:47:52.043054889Z"
+                        },
+                        {
+                           "Log" : "data transfer send error: queue shutdown",
+                           "UpdatedTime" : "2022-07-19T13:47:52.088080696Z"
+                        },
+                        {
+                           "Log" : "data transfer receive error: stream reset",
+                           "UpdatedTime" : "2022-07-19T19:25:39.654833572Z"
+                        },
+                        {
+                           "Log" : "sending data",
+                           "UpdatedTime" : "2022-07-19T19:27:46.534067399Z"
+                        },
+                        {
+                           "Log" : "data transfer receive error: stream reset",
+                           "UpdatedTime" : "2022-07-19T19:42:16.513617251Z"
+                        },
+                        {
+                           "Log" : "data transfer send error: message queue shutdown",
+                           "UpdatedTime" : "2022-07-19T19:42:16.615247741Z"
+                        },
+                        {
+                           "Log" : "data transfer receive error: stream reset",
+                           "UpdatedTime" : "2022-07-19T19:42:16.616794109Z"
+                        },
+                        {
+                           "Log" : "sending data",
+                           "UpdatedTime" : "2022-07-19T19:44:58.592950927Z"
+                        }
+                     ],
+                     "Name" : "Ongoing",
+                     "UpdatedTime" : "2022-07-19T20:40:32.343553232Z"
+                  },
+                  {
+                     "CreatedTime" : "2022-07-19T20:40:33.107403879Z",
+                     "Description" : "",
+                     "Logs" : null,
+                     "Name" : "TransferFinished",
+                     "UpdatedTime" : "2022-07-19T20:40:33.107403879Z"
+                  },
+                  {
+                     "CreatedTime" : "2022-07-19T20:40:33.111948827Z",
+                     "Description" : "",
+                     "Logs" : null,
+                     "Name" : "Completing",
+                     "UpdatedTime" : "2022-07-19T20:40:33.111948827Z"
+                  }
+               ]
+            },
+            "baseCid" : "bafybeiaq4txuk5ksmmeg2273ftxwnktpj6ut4u372rnlhrl7xt54vmzodm",
+            "channelId" : {
+               "ID" : 1658230750730020036,
+               "Initiator" : "12D3KooWLmmKgFs7Jutjnhhic2V7JJhf4t9uTz4NAdLVVfSp9Fys",
+               "Responder" : "12D3KooWGafNMRANxrJea1wMfYcdJNVgLnKQCkNkAoGvjhGzKYJJ"
+            },
+            "message" : "",
+            "received" : 0,
+            "remotePeer" : "12D3KooWGafNMRANxrJea1wMfYcdJNVgLnKQCkNkAoGvjhGzKYJJ",
+            "selfPeer" : "12D3KooWLmmKgFs7Jutjnhhic2V7JJhf4t9uTz4NAdLVVfSp9Fys",
+            "sent" : 4412579774,
+            "status" : 6,
+            "statusMessage" : "Completed",
+            "transferId" : "12D3KooWLmmKgFs7Jutjnhhic2V7JJhf4t9uTz4NAdLVVfSp9Fys-12D3KooWGafNMRANxrJea1wMfYcdJNVgLnKQCkNkAoGvjhGzKYJJ-1658230750730020036"
+         }
+      }
+```
+4. Congratulations!!! You have now successfully sealed a filecoin deal.
  
 ## Troubleshooting
 1. If no deals are being made and are getting the below error in your logs, this means that you have not successfully added some data allowance to your wallet. Go to https://verify.glif.io/ and request allowance on your wallet address.
@@ -244,4 +498,5 @@ ulimit -n 10000
 - https://github.com/application-research/estuary
 - https://verify.glif.io/
 - https://docs.estuary.tech/
+- https://spec.filecoin.io/
  
