@@ -150,7 +150,7 @@ We can also query deals status for specific content. Deals will be made automati
 https://docs.estuary.tech/api-content-status-id
  
 ```
-curl -X GET -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY" http://192.168.86.67:3004/content/status/1
+curl -X GET -H "Authorization: Bearer EST51e7f8aa-762c-43b7-b5ce-5967ba665131ARY" http://localhost:3004/content/status/1
 ...
       {
          "deal" : {
